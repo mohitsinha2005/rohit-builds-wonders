@@ -1,5 +1,5 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import profile from "@/assets/profile.png.asset.json";
+import profile from "@/assets/profile.webp.asset.json";
 
 export function Portrait() {
   const x = useMotionValue(0);

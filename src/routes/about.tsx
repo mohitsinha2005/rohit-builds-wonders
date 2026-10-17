@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Reveal, SectionTitle } from "@/components/Layout";
 import { Certificates } from "@/components/Certificates";
-import profile from "@/assets/profile.png.asset.json";
+import profile from "@/assets/profile.webp.asset.json";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
