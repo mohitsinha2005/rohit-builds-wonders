@@ -1,3 +1,11 @@
 [build]
   command = "bun run build"
   publish = "dist"
+
+# Images/PDFs uploaded in Lovable are referenced as /__l5e/assets-v1/... which only
+# Lovable's hosting serves. Proxy them so they load on Netlify too.
+[[redirects]]
+  from = "/__l5e/assets-v1/*"
+  to = "https://id-preview--010378c1-68c7-493d-967f-ef165e6f259d.lovable.app/__l5e/assets-v1/:splat"
+  status = 200
+  force = true
