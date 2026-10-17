@@ -83,3 +83,17 @@
 }
 
 @keyframes shine { to { background-position: 200% center; } }
+
+@utility bg-pro {
+  background:
+    radial-gradient(60% 50% at 80% 10%, oklch(0.8 0.14 70 / 14%), transparent 70%),
+    radial-gradient(50% 50% at 0% 90%, oklch(0.72 0.09 200 / 14%), transparent 70%),
+    linear-gradient(oklch(1 0 0 / 3.5%) 1px, transparent 1px) 0 0 / 64px 64px,
+    linear-gradient(90deg, oklch(1 0 0 / 3.5%) 1px, transparent 1px) 0 0 / 64px 64px,
+    var(--background);
+  mask-image: radial-gradient(120% 100% at 50% 0%, black 60%, transparent);
+}
+
+@utility ring-glow {
+  box-shadow: 0 30px 80px -20px oklch(0.8 0.14 70 / 45%), 0 0 0 1px oklch(0.8 0.14 70 / 40%);
+}
