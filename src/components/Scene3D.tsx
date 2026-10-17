@@ -26,7 +26,7 @@ function Wave() {
     if (!g) return;
     const a = g.array as Float32Array;
     for (let i = 0; i < a.length; i += 3) {
-      const x = base[i], z = base[i + 2];
+      const x = base[i]!, z = base[i + 2]!;
       a[i + 1] = Math.sin(x * 0.45 + t) * 0.45 + Math.cos(z * 0.35 + t * 0.8) * 0.45;
     }
     g.needsUpdate = true;
