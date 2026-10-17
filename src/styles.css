@@ -102,3 +102,7 @@
 @utility ring-glow {
   box-shadow: 0 30px 80px -20px oklch(0.66 0.19 255 / 45%), 0 0 0 1px oklch(0.66 0.19 255 / 40%);
 }
+
+@utility text-pop {
+  text-shadow: 0 2px 14px oklch(0.1 0.03 260 / 85%), 0 0 4px oklch(0.1 0.03 260 / 60%);
+}
