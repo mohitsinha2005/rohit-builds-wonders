@@ -53,7 +53,7 @@ export function Layout({ children }: { children: ReactNode }) {
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           exit={{ opacity: 0, y: -20, filter: "blur(6px)" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 mx-auto max-w-6xl px-6 pb-24 pt-32"
+          className="text-pop relative z-10 mx-auto max-w-6xl px-6 pb-24 pt-32"
         >
           {children}
         </motion.main>
