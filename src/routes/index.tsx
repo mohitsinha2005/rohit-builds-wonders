@@ -58,7 +58,7 @@ function Home() {
             {">"} data_scientist.init(name="Rohit") <span className="animate-pulse">▍</span>
           </motion.p>
           <h1 className="text-5xl font-bold leading-[1.02] tracking-tight text-foreground md:text-7xl">
-            {words.map((w, i) => (
+            {words.map((w) => (
               <motion.span
                 key={w}
                 initial={{ opacity: 0, y: 80, rotateX: -60 }}
