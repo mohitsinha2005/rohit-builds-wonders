@@ -29,6 +29,11 @@ function Contact() {
         >
           rohitraj932005@gmail.com
         </a>
+        <div className="mt-12">
+          <a href="/downloads/Rohit_Raj_Sharma_Resume.pdf" download="Rohit_Raj_Sharma_Resume.pdf" className="ring-glow inline-block rounded-full bg-primary px-8 py-3.5 font-semibold text-primary-foreground transition-transform hover:scale-105">
+            Download resume ↓
+          </a>
+        </div>
       </Reveal>
     </>
   );
