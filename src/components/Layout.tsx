@@ -18,7 +18,7 @@ export function Layout({ children }: { children: ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative isolate min-h-screen">
       {mounted && (
         <Suspense fallback={null}>
           <Scene3D />
@@ -51,12 +51,12 @@ export function Layout({ children }: { children: ReactNode }) {
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           exit={{ opacity: 0, y: -20, filter: "blur(6px)" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto max-w-6xl px-6 pb-24 pt-32"
+          className="relative z-10 mx-auto max-w-6xl px-6 pb-24 pt-32"
         >
           {children}
         </motion.main>
       </AnimatePresence>
-      <footer className="pb-8 text-center text-xs text-muted-foreground">
+      <footer className="relative z-10 pb-8 text-center text-xs text-muted-foreground">
         © {new Date().getFullYear()} Rohit Raj Sharma
       </footer>
     </div>
