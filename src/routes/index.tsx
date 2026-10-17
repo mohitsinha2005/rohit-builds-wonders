@@ -27,11 +27,11 @@ function Home() {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.2 }}
-        className="mb-6 font-mono text-sm text-accent"
+        className="mb-6 font-mono text-sm tracking-wide text-accent"
       >
         {">"} data_scientist.init(name="Rohit") <span className="animate-pulse">▍</span>
       </motion.p>
-      <h1 className="text-5xl font-extrabold leading-[0.95] md:text-7xl">
+      <h1 className="text-5xl font-bold leading-[1.02] tracking-tight md:text-7xl">
         {words.map((w, i) => (
           <motion.span
             key={w}
@@ -45,7 +45,7 @@ function Home() {
         ))}
       </h1>
       <Reveal delay={0.8}>
-        <p className="mt-8 max-w-xl text-lg text-muted-foreground md:text-xl">
+        <p className="mt-8 max-w-xl text-lg font-light leading-relaxed text-muted-foreground md:text-xl">
           Full stack developer, AI/ML automation engineer and scholar — building products that
           ship, scale and learn.
         </p>
@@ -64,8 +64,8 @@ function Home() {
       <Reveal delay={1.2} className="mt-20 grid max-w-2xl grid-cols-3 gap-6">
         {[["7+", "organisations"], ["4", "ml_projects"], ["8", "tech_stack"]].map(([n, l]) => (
           <div key={l}>
-            <p className="font-display text-4xl font-bold text-primary">{n}</p>
-            <p className="font-mono text-xs text-muted-foreground">{l}</p>
+            <p className="font-display text-4xl font-semibold tracking-tight text-primary">{n}</p>
+            <p className="mt-1 font-mono text-xs tracking-wider text-muted-foreground">{l}</p>
           </div>
         ))}
       </Reveal>
