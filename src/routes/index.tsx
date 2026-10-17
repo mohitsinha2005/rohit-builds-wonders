@@ -47,7 +47,7 @@ const certs = [
 function Home() {
   return (
     <>
-      <section className="grid min-h-[75vh] items-center gap-12 lg:grid-cols-[1.3fr_1fr]">
+      <section className="grid items-center gap-10 md:grid-cols-[1.3fr_1fr] lg:gap-12">
         <div>
           <motion.p
             initial={{ opacity: 0, x: -20 }}
