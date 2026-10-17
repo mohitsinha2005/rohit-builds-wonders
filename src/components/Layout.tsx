@@ -25,6 +25,8 @@ export function Layout({ children }: { children: ReactNode }) {
           <Scene3D />
         </Suspense>
       )}
+      {/* Fades the 3D scene back so text stays readable */}
+      <div className="pointer-events-none fixed inset-0 z-[1] bg-background/60 backdrop-blur-[2px]" />
       <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
         <nav className="glass flex items-center gap-1 px-2 py-2 text-sm">
           {links.map((l) => (
