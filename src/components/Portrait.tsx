@@ -13,7 +13,7 @@ export function Portrait() {
       animate={{ opacity: 1, scale: 1, rotateY: 0 }}
       transition={{ delay: 0.5, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
       style={{ perspective: 1000 }}
-      className="mx-auto w-full max-w-sm"
+      className="mx-auto w-full max-w-[17rem]"
     >
       <motion.div
         onMouseMove={(e) => {
@@ -25,15 +25,15 @@ export function Portrait() {
         style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}
         className="relative"
       >
-        <div className="absolute -inset-4 rounded-[2rem] border border-primary/30" style={{ transform: "translateZ(-40px)" }} />
+        <div className="absolute -inset-3 rounded-[1.75rem] border border-primary/30" style={{ transform: "translateZ(-40px)" }} />
         <img
           src={profile.url}
           alt="Rohit Raj Sharma"
-          className="ring-glow aspect-[4/5] w-full rounded-3xl object-cover object-top"
+          className="ring-glow aspect-[4/5] w-full rounded-2xl object-cover object-top"
         />
-        <div className="glass absolute -bottom-6 -left-6 px-5 py-3" style={{ transform: "translateZ(60px)" }}>
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">Currently</p>
-          <p className="font-display font-bold text-primary">Data Science · AI/ML</p>
+        <div className="glass absolute -bottom-5 -left-5 px-4 py-2.5" style={{ transform: "translateZ(60px)" }}>
+          <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Currently</p>
+          <p className="font-display text-sm font-bold text-primary">Data Science · AI/ML</p>
         </div>
       </motion.div>
     </motion.div>
