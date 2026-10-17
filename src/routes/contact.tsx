@@ -24,10 +24,10 @@ function Contact() {
           Open to full stack, AI/ML automation and freelance collaborations.
         </p>
         <a
-          href="mailto:rohitrajsharma@example.com"
+          href="mailto:rohitraj932005@gmail.com"
           className="mt-10 inline-block font-display text-3xl font-bold text-gradient md:text-5xl"
         >
-          rohitrajsharma@example.com
+          rohitraj932005@gmail.com
         </a>
       </Reveal>
     </>
