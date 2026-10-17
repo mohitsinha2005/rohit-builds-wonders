@@ -93,7 +93,7 @@ export function TiltCard({ children, className = "" }: { children: ReactNode; cl
 export function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
     <Reveal className="mb-12">
-      <p className="mb-3 text-sm uppercase tracking-[0.3em] text-primary">{eyebrow}</p>
+      <p className="mb-3 font-mono text-sm text-accent">{"// "}{eyebrow.toLowerCase()}</p>
       <h1 className="text-4xl font-bold md:text-6xl">{title}</h1>
     </Reveal>
   );

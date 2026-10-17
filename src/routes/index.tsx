@@ -27,9 +27,9 @@ function Home() {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.2 }}
-        className="mb-6 text-sm uppercase tracking-[0.35em] text-primary"
+        className="mb-6 font-mono text-sm text-accent"
       >
-        Portfolio · 2026
+        {">"} data_scientist.init(name="Rohit") <span className="animate-pulse">▍</span>
       </motion.p>
       <h1 className="text-5xl font-extrabold leading-[0.95] md:text-7xl">
         {words.map((w, i) => (
@@ -62,10 +62,10 @@ function Home() {
         </a>
       </Reveal>
       <Reveal delay={1.2} className="mt-20 grid max-w-2xl grid-cols-3 gap-6">
-        {[["7+", "Organisations"], ["4", "Key projects"], ["8", "Technologies"]].map(([n, l]) => (
+        {[["7+", "organisations"], ["4", "ml_projects"], ["8", "tech_stack"]].map(([n, l]) => (
           <div key={l}>
             <p className="font-display text-4xl font-bold text-primary">{n}</p>
-            <p className="text-sm text-muted-foreground">{l}</p>
+            <p className="font-mono text-xs text-muted-foreground">{l}</p>
           </div>
         ))}
       </Reveal>

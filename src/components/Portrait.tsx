@@ -33,7 +33,7 @@ export function Portrait() {
         />
         <div className="glass absolute -bottom-6 -left-6 px-5 py-3" style={{ transform: "translateZ(60px)" }}>
           <p className="text-xs uppercase tracking-widest text-muted-foreground">Currently</p>
-          <p className="font-display font-bold text-primary">Full Stack · AI/ML</p>
+          <p className="font-display font-bold text-primary">Data Science · AI/ML</p>
         </div>
       </motion.div>
     </motion.div>
