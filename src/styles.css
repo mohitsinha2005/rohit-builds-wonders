@@ -86,12 +86,16 @@
 
 @utility bg-pro {
   background:
-    radial-gradient(60% 50% at 80% 10%, oklch(0.66 0.19 255 / 14%), transparent 70%),
-    radial-gradient(50% 50% at 0% 90%, oklch(0.72 0.09 200 / 14%), transparent 70%),
-    linear-gradient(oklch(1 0 0 / 3.5%) 1px, transparent 1px) 0 0 / 64px 64px,
-    linear-gradient(90deg, oklch(1 0 0 / 3.5%) 1px, transparent 1px) 0 0 / 64px 64px,
-    var(--background);
-  mask-image: radial-gradient(120% 100% at 50% 0%, black 60%, transparent);
+    radial-gradient(45% 40% at 85% 15%, oklch(0.55 0.2 260 / 22%), transparent 70%),
+    radial-gradient(40% 40% at 10% 85%, oklch(0.6 0.15 220 / 18%), transparent 70%),
+    radial-gradient(120% 90% at 50% 40%, oklch(0.13 0.04 265), oklch(0.07 0.02 265));
+  animation: nebula 18s ease-in-out infinite alternate;
+  background-size: 140% 140%;
+}
+
+@keyframes nebula {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
 }
 
 @utility ring-glow {
