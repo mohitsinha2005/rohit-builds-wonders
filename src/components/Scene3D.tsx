@@ -1,80 +1,94 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Stars } from "@react-three/drei";
+import { Stars } from "@react-three/drei";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 
-function Galaxy() {
-  const ref = useRef<THREE.Points>(null);
-  const { positions, colors } = useMemo(() => {
-    const count = 6000;
-    const positions = new Float32Array(count * 3);
-    const colors = new Float32Array(count * 3);
-    const inner = new THREE.Color("#9fd3ff");
-    const outer = new THREE.Color("#1e40af");
-    for (let i = 0; i < count; i++) {
-      const r = Math.random() * 9;
-      const branch = ((i % 4) / 4) * Math.PI * 2;
-      const spin = r * 0.9;
-      const rand = () => Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 0.6 * (1 + r * 0.15);
-      positions[i * 3] = Math.cos(branch + spin) * r + rand();
-      positions[i * 3 + 1] = rand() * 0.4;
-      positions[i * 3 + 2] = Math.sin(branch + spin) * r + rand();
-      const c = inner.clone().lerp(outer, r / 9);
-      colors[i * 3] = c.r;
-      colors[i * 3 + 1] = c.g;
-      colors[i * 3 + 2] = c.b;
-    }
-    return { positions, colors };
+const LAYERS = [6, 9, 9, 5];
+
+function useNetwork() {
+  return useMemo(() => {
+    const nodes: THREE.Vector3[][] = LAYERS.map((n, li) =>
+      Array.from({ length: n }, (_, i) =>
+        new THREE.Vector3((li - (LAYERS.length - 1) / 2) * 3.2, (i - (n - 1) / 2) * 0.85, (Math.random() - 0.5) * 2.5),
+      ),
+    );
+    const edges: [THREE.Vector3, THREE.Vector3][] = [];
+    for (let l = 0; l < nodes.length - 1; l++)
+      for (const a of nodes[l]!) for (const b of nodes[l + 1]!) if (Math.random() < 0.55) edges.push([a, b]);
+    const linePos = new Float32Array(edges.length * 6);
+    edges.forEach(([a, b], i) => linePos.set([a.x, a.y, a.z, b.x, b.y, b.z], i * 6));
+    return { nodes: nodes.flat(), edges, linePos };
   }, []);
-  useFrame((_, d) => {
-    if (ref.current) ref.current.rotation.y += Math.min(d, 0.05) * 0.06;
+}
+
+function Network() {
+  const group = useRef<THREE.Group>(null);
+  const nodeRefs = useRef<THREE.Mesh[]>([]);
+  const pulses = useRef<THREE.InstancedMesh>(null);
+  const { nodes, edges, linePos } = useNetwork();
+  const PULSES = 40;
+  const seeds = useMemo(() => Array.from({ length: PULSES }, () => ({ e: Math.floor(Math.random() * edges.length), o: Math.random() })), [edges.length]);
+  const tmp = useMemo(() => new THREE.Object3D(), []);
+
+  useFrame(({ clock }, d) => {
+    const t = clock.elapsedTime;
+    if (group.current) group.current.rotation.y = Math.sin(t * 0.15) * 0.5 + 0.3;
+    nodeRefs.current.forEach((m, i) => m && m.scale.setScalar(1 + Math.sin(t * 2 + i) * 0.25));
+    const im = pulses.current;
+    if (!im) return;
+    seeds.forEach((s, i) => {
+      s.o += Math.min(d, 0.05) * 0.5;
+      if (s.o > 1) { s.o = 0; s.e = Math.floor(Math.random() * edges.length); }
+      const [a, b] = edges[s.e]!;
+      tmp.position.lerpVectors(a, b, s.o);
+      tmp.updateMatrix();
+      im.setMatrixAt(i, tmp.matrix);
+    });
+    im.instanceMatrix.needsUpdate = true;
   });
+
   return (
-    <points ref={ref} position={[2, -2.2, -6]} rotation={[0.45, 0, 0.15]}>
+    <group ref={group} position={[2.5, 0, -3]} scale={0.95}>
+      <lineSegments>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" args={[linePos, 3]} />
+        </bufferGeometry>
+        <lineBasicMaterial color="#3b82f6" transparent opacity={0.18} />
+      </lineSegments>
+      {nodes.map((p, i) => (
+        <mesh key={i} position={p} ref={(m) => { if (m) nodeRefs.current[i] = m; }}>
+          <sphereGeometry args={[0.09, 16, 16]} />
+          <meshBasicMaterial color={i % 5 === 0 ? "#7dd3fc" : "#60a5fa"} />
+        </mesh>
+      ))}
+      <instancedMesh ref={pulses} args={[undefined, undefined, PULSES]}>
+        <sphereGeometry args={[0.05, 8, 8]} />
+        <meshBasicMaterial color="#e0f2fe" />
+      </instancedMesh>
+    </group>
+  );
+}
+
+function DataCloud() {
+  const ref = useRef<THREE.Points>(null);
+  const pos = useMemo(() => {
+    const a = new Float32Array(1200 * 3);
+    for (let i = 0; i < 1200; i++) {
+      const x = (Math.random() - 0.5) * 14;
+      a[i * 3] = x;
+      a[i * 3 + 1] = x * 0.35 + (Math.random() - 0.5) * 1.6 - 2.5; // regression-like scatter
+      a[i * 3 + 2] = (Math.random() - 0.5) * 6 - 6;
+    }
+    return a;
+  }, []);
+  useFrame((_, d) => { if (ref.current) ref.current.rotation.y += Math.min(d, 0.05) * 0.04; });
+  return (
+    <points ref={ref}>
       <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-        <bufferAttribute attach="attributes-color" args={[colors, 3]} />
+        <bufferAttribute attach="attributes-position" args={[pos, 3]} />
       </bufferGeometry>
-      <pointsMaterial size={0.05} vertexColors transparent opacity={0.9} depthWrite={false} blending={THREE.AdditiveBlending} />
+      <pointsMaterial size={0.04} color="#38bdf8" transparent opacity={0.55} depthWrite={false} />
     </points>
-  );
-}
-
-function Planet() {
-  const ref = useRef<THREE.Group>(null);
-  useFrame((_, d) => {
-    if (ref.current) ref.current.rotation.y += Math.min(d, 0.05) * 0.15;
-  });
-  return (
-    <Float speed={1} rotationIntensity={0.3} floatIntensity={0.8}>
-      <group ref={ref} position={[-4.2, 2.2, -3]}>
-        <mesh>
-          <sphereGeometry args={[0.9, 64, 64]} />
-          <meshStandardMaterial color="#2a5bd7" roughness={0.6} metalness={0.2} emissive="#0b1e5c" />
-        </mesh>
-        <mesh rotation={[1.2, 0, 0.3]}>
-          <ringGeometry args={[1.25, 1.75, 96]} />
-          <meshBasicMaterial color="#8ec5ff" transparent opacity={0.35} side={THREE.DoubleSide} />
-        </mesh>
-      </group>
-    </Float>
-  );
-}
-
-function ShootingStar({ delay }: { delay: number }) {
-  const ref = useRef<THREE.Mesh>(null);
-  useFrame(({ clock }) => {
-    const m = ref.current;
-    if (!m) return;
-    const t = ((clock.elapsedTime + delay) % 7) / 7;
-    m.position.set(8 - t * 22, 5 - t * 9, -5);
-    (m.material as THREE.MeshBasicMaterial).opacity = t < 0.3 ? Math.sin((t / 0.3) * Math.PI) : 0;
-  });
-  return (
-    <mesh ref={ref} rotation={[0, 0, 0.39]}>
-      <planeGeometry args={[1.6, 0.025]} />
-      <meshBasicMaterial color="#e0f0ff" transparent opacity={0} />
-    </mesh>
   );
 }
 
@@ -83,7 +97,7 @@ function Rig() {
     const k = 1 - Math.exp(-2 * Math.min(d, 0.05));
     camera.position.x += (pointer.x * 1.2 - camera.position.x) * k;
     camera.position.y += (pointer.y * 0.7 - camera.position.y) * k;
-    camera.position.z = 8 - Math.min(window.scrollY / 400, 3);
+    camera.position.z = 9 - Math.min(window.scrollY / 400, 3);
     camera.lookAt(0, 0, -3);
   });
   return null;
@@ -92,14 +106,10 @@ function Rig() {
 export default function Scene3D() {
   return (
     <div className="pointer-events-none fixed inset-0 z-0">
-      <Canvas gl={{ alpha: true }} dpr={[1, 1.75]} camera={{ position: [0, 0, 8], fov: 55 }}>
-        <ambientLight intensity={0.25} />
-        <directionalLight position={[6, 3, 5]} intensity={2.2} color="#cfe0ff" />
-        <Stars radius={60} depth={40} count={4000} factor={3} saturation={0} fade speed={1} />
-        <Galaxy />
-        <Planet />
-        <ShootingStar delay={0} />
-        <ShootingStar delay={3.5} />
+      <Canvas gl={{ alpha: true }} dpr={[1, 1.75]} camera={{ position: [0, 0, 9], fov: 55 }}>
+        <Stars radius={60} depth={40} count={2500} factor={2.5} saturation={0} fade speed={0.6} />
+        <DataCloud />
+        <Network />
         <Rig />
       </Canvas>
     </div>
