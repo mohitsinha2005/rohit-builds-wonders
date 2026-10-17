@@ -1,24 +1,69 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { motion } from "framer-motion";
+import { Reveal } from "@/components/Layout";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Rohit Raj Sharma — Full Stack & AI/ML Developer" },
+      { name: "description", content: "Portfolio of Rohit Raj Sharma: full stack developer, AI/ML automation engineer and scholar." },
+      { property: "og:title", content: "Rohit Raj Sharma — Full Stack & AI/ML Developer" },
+      { property: "og:description", content: "Full stack developer, AI/ML automation engineer and scholar." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: Home,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+const words = ["Rohit", "Raj", "Sharma"];
+
+function Home() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <section className="flex min-h-[75vh] flex-col justify-center">
+      <motion.p
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.2 }}
+        className="mb-6 text-sm uppercase tracking-[0.35em] text-primary"
+      >
+        Portfolio · 2026
+      </motion.p>
+      <h1 className="text-6xl font-extrabold leading-[0.95] md:text-8xl">
+        {words.map((w, i) => (
+          <motion.span
+            key={w}
+            initial={{ opacity: 0, y: 80, rotateX: -60 }}
+            animate={{ opacity: 1, y: 0, rotateX: 0 }}
+            transition={{ delay: 0.3 + i * 0.15, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className={`mr-4 inline-block ${i === 2 ? "text-gradient" : ""}`}
+          >
+            {w}
+          </motion.span>
+        ))}
+      </h1>
+      <Reveal delay={0.8}>
+        <p className="mt-8 max-w-xl text-lg text-muted-foreground md:text-xl">
+          Full stack developer, AI/ML automation engineer and scholar — building products that
+          ship, scale and learn.
+        </p>
+      </Reveal>
+      <Reveal delay={1} className="mt-10 flex flex-wrap gap-4">
+        <Link to="/projects" className="rounded-full bg-primary px-7 py-3 font-semibold text-primary-foreground transition-transform hover:scale-105">
+          View projects
+        </Link>
+        <Link to="/contact" className="glass rounded-full px-7 py-3 font-semibold transition-colors hover:border-primary">
+          Get in touch
+        </Link>
+      </Reveal>
+      <Reveal delay={1.2} className="mt-20 grid max-w-2xl grid-cols-3 gap-6">
+        {[["5+", "Organisations"], ["4", "Key projects"], ["8", "Technologies"]].map(([n, l]) => (
+          <div key={l}>
+            <p className="font-display text-4xl font-bold text-primary">{n}</p>
+            <p className="text-sm text-muted-foreground">{l}</p>
+          </div>
+        ))}
+      </Reveal>
+    </section>
   );
 }
