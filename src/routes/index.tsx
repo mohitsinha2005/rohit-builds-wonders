@@ -57,6 +57,9 @@ function Home() {
         <Link to="/contact" className="glass rounded-full px-7 py-3 font-semibold transition-colors hover:border-primary">
           Get in touch
         </Link>
+        <a href="/downloads/Rohit_Raj_Sharma_Resume.pdf" download="Rohit_Raj_Sharma_Resume.pdf" className="glass rounded-full px-7 py-3 font-semibold text-accent transition-colors hover:border-primary">
+          Resume ↓
+        </a>
       </Reveal>
       <Reveal delay={1.2} className="mt-20 grid max-w-2xl grid-cols-3 gap-6">
         {[["7+", "Organisations"], ["4", "Key projects"], ["8", "Technologies"]].map(([n, l]) => (

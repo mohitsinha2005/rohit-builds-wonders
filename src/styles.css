@@ -34,26 +34,26 @@
 
 :root {
   --radius: 1rem;
-  --background: oklch(0.16 0.012 250);
-  --foreground: oklch(0.96 0.01 80);
-  --card: oklch(0.21 0.014 250 / 55%);
-  --card-foreground: oklch(0.96 0.01 80);
-  --popover: oklch(0.2 0.014 250);
-  --popover-foreground: oklch(0.96 0.01 80);
-  --primary: oklch(0.8 0.14 70);
-  --primary-foreground: oklch(0.18 0.02 60);
-  --secondary: oklch(0.26 0.015 250);
-  --secondary-foreground: oklch(0.96 0.01 80);
-  --muted: oklch(0.26 0.015 250);
+  --background: oklch(0.14 0.03 260);
+  --foreground: oklch(0.97 0.01 250);
+  --card: oklch(0.2 0.04 260 / 55%);
+  --card-foreground: oklch(0.97 0.01 250);
+  --popover: oklch(0.19 0.04 260);
+  --popover-foreground: oklch(0.97 0.01 250);
+  --primary: oklch(0.66 0.19 255);
+  --primary-foreground: oklch(0.98 0.01 250);
+  --secondary: oklch(0.25 0.05 260);
+  --secondary-foreground: oklch(0.97 0.01 250);
+  --muted: oklch(0.25 0.05 260);
   --muted-foreground: oklch(0.7 0.02 250);
-  --accent: oklch(0.72 0.09 200);
-  --accent-foreground: oklch(0.16 0.012 250);
+  --accent: oklch(0.8 0.12 220);
+  --accent-foreground: oklch(0.14 0.03 260);
   --destructive: oklch(0.65 0.2 25);
   --destructive-foreground: oklch(0.98 0 0);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.8 0.14 70);
-  --gradient-text: linear-gradient(110deg, var(--primary), oklch(0.9 0.08 85), var(--accent));
+  --ring: oklch(0.66 0.19 255);
+  --gradient-text: linear-gradient(110deg, var(--primary), oklch(0.85 0.1 230), var(--accent));
 }
 
 @layer base {
@@ -86,14 +86,18 @@
 
 @utility bg-pro {
   background:
-    radial-gradient(60% 50% at 80% 10%, oklch(0.8 0.14 70 / 14%), transparent 70%),
-    radial-gradient(50% 50% at 0% 90%, oklch(0.72 0.09 200 / 14%), transparent 70%),
-    linear-gradient(oklch(1 0 0 / 3.5%) 1px, transparent 1px) 0 0 / 64px 64px,
-    linear-gradient(90deg, oklch(1 0 0 / 3.5%) 1px, transparent 1px) 0 0 / 64px 64px,
-    var(--background);
-  mask-image: radial-gradient(120% 100% at 50% 0%, black 60%, transparent);
+    radial-gradient(45% 40% at 85% 15%, oklch(0.55 0.2 260 / 22%), transparent 70%),
+    radial-gradient(40% 40% at 10% 85%, oklch(0.6 0.15 220 / 18%), transparent 70%),
+    radial-gradient(120% 90% at 50% 40%, oklch(0.13 0.04 265), oklch(0.07 0.02 265));
+  animation: nebula 18s ease-in-out infinite alternate;
+  background-size: 140% 140%;
+}
+
+@keyframes nebula {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
 }
 
 @utility ring-glow {
-  box-shadow: 0 30px 80px -20px oklch(0.8 0.14 70 / 45%), 0 0 0 1px oklch(0.8 0.14 70 / 40%);
+  box-shadow: 0 30px 80px -20px oklch(0.66 0.19 255 / 45%), 0 0 0 1px oklch(0.66 0.19 255 / 40%);
 }

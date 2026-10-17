@@ -27,7 +27,6 @@ export function Layout({ children }: { children: ReactNode }) {
       )}
       <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
         <nav className="glass flex items-center gap-1 px-2 py-2 text-sm">
-          <Link to="/" className="px-3 font-display font-bold text-primary">RRS</Link>
           {links.map((l) => (
             <Link
               key={l.to}
