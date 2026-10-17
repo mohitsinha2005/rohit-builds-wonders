@@ -19,6 +19,7 @@ export function Layout({ children }: { children: ReactNode }) {
 
   return (
     <div className="relative isolate min-h-screen">
+      <div className="bg-pro pointer-events-none fixed inset-0 -z-10" />
       {mounted && (
         <Suspense fallback={null}>
           <Scene3D />

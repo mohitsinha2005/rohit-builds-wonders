@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Reveal, SectionTitle, TiltCard } from "@/components/Layout";
+import { Reveal, SectionTitle } from "@/components/Layout";
+import { Certificates } from "@/components/Certificates";
+import profile from "@/assets/profile.png.asset.json";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -17,16 +19,13 @@ export const Route = createFileRoute("/about")({
 });
 
 const stack = ["Python", "React JS", "Vue JS", "JavaScript", "Java", "PostgreSQL", "SQL", "Figma"];
-const certs = [
-  { title: "Google Digital Marketing Expert", by: "Google" },
-  { title: "Topper as Sophomore", by: "Academic excellence award" },
-];
 
 function About() {
   return (
     <>
       <SectionTitle eyebrow="About" title="Engineer. Automator. Scholar." />
-      <Reveal>
+      <Reveal className="flex flex-col items-start gap-8 md:flex-row md:items-center">
+        <img src={profile.url} alt="Rohit Raj Sharma" className="ring-glow h-40 w-40 rounded-full object-cover object-top" />
         <p className="max-w-3xl text-lg text-muted-foreground">
           I build full stack web products and AI/ML automation pipelines — from clean interfaces
           designed in Figma to data models and prediction systems running in production.
@@ -51,16 +50,7 @@ function About() {
       </div>
 
       <h2 className="mb-6 mt-20 text-3xl font-bold">Certifications & honours</h2>
-      <div className="grid gap-6 md:grid-cols-2">
-        {certs.map((c, i) => (
-          <Reveal key={c.title} delay={i * 0.1}>
-            <TiltCard>
-              <p className="text-sm uppercase tracking-widest text-accent">{c.by}</p>
-              <h3 className="mt-2 text-2xl font-bold">{c.title}</h3>
-            </TiltCard>
-          </Reveal>
-        ))}
-      </div>
+      <Certificates />
     </>
   );
 }

@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Reveal } from "@/components/Layout";
+import { Portrait } from "@/components/Portrait";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -20,7 +21,8 @@ const words = ["Rohit", "Raj", "Sharma"];
 
 function Home() {
   return (
-    <section className="flex min-h-[75vh] flex-col justify-center">
+    <section className="grid min-h-[75vh] items-center gap-12 lg:grid-cols-[1.3fr_1fr]">
+      <div>
       <motion.p
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -29,7 +31,7 @@ function Home() {
       >
         Portfolio · 2026
       </motion.p>
-      <h1 className="text-6xl font-extrabold leading-[0.95] md:text-8xl">
+      <h1 className="text-5xl font-extrabold leading-[0.95] md:text-7xl">
         {words.map((w, i) => (
           <motion.span
             key={w}
@@ -57,13 +59,15 @@ function Home() {
         </Link>
       </Reveal>
       <Reveal delay={1.2} className="mt-20 grid max-w-2xl grid-cols-3 gap-6">
-        {[["5+", "Organisations"], ["4", "Key projects"], ["8", "Technologies"]].map(([n, l]) => (
+        {[["7+", "Organisations"], ["4", "Key projects"], ["8", "Technologies"]].map(([n, l]) => (
           <div key={l}>
             <p className="font-display text-4xl font-bold text-primary">{n}</p>
             <p className="text-sm text-muted-foreground">{l}</p>
           </div>
         ))}
       </Reveal>
+      </div>
+      <Portrait />
     </section>
   );
 }

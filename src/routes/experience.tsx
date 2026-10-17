@@ -16,6 +16,8 @@ export const Route = createFileRoute("/experience")({
 });
 
 const orgs = [
+  { name: "Neurogati · CNS Lab", tag: "Internship · Oct 2025 – Mar 2026" },
+  { name: "TG Consulting", tag: "Product Lead & Developer · MSME web app" },
   { name: "Gedi Foods", tag: "Food & Beverage" },
   { name: "Coding Bits", tag: "Tech education" },
   { name: "Cosmic Soul", tag: "Brand & wellness" },

@@ -62,9 +62,8 @@ function Shapes() {
 export default function Scene3D() {
   return (
     <div className="pointer-events-none fixed inset-0 z-0">
-      <Canvas dpr={[1, 1.75]} camera={{ position: [0, 0, 8], fov: 50 }}>
-        <color attach="background" args={["#14171d"]} />
-        <fog attach="fog" args={["#14171d", 8, 22]} />
+      <Canvas gl={{ alpha: true }} dpr={[1, 1.75]} camera={{ position: [0, 0, 8], fov: 50 }}>
+                <fog attach="fog" args={["#14171d", 8, 22]} />
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 5, 5]} intensity={1.6} />
         <Environment>
